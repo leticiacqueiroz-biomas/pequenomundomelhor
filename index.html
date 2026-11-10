@@ -1,14 +1,419 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
-<title>Pequeno Mundo Melhor</title>
-<meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="0; url=/piracanga/">
-<link rel="canonical" href="https://pequenomundomelhor.org/piracanga/">
-<script>location.replace('/piracanga/');</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pequeno Mundo Melhor</title>
+    <meta name="description" content="Um movimento de pessoas construindo pequenos mundos melhores. Começa na casa, cresce na vila, floresce na bacia. Em construção.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Courier+Prime:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- OG Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Pequeno Mundo Melhor" />
+    <meta property="og:url" content="https://pequenomundomelhor.org" />
+    <meta property="og:title" content="Pequeno Mundo Melhor" />
+    <meta property="og:description" content="Um movimento de pessoas construindo pequenos mundos melhores. Em construção." />
+    <meta property="og:image" content="https://pequenomundomelhor.org/hero.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/x-icon" href="piracanga/favicon.png">
+
+    <style>
+        :root {
+            --carvao: #35312c;
+            --carvao-2: #2c2925;
+            --dourado: #c9a35f;
+            --dourado-claro: #dfc08a;
+            --areia: #efe0cb;
+            --texto-claro: #d9cdb9;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--carvao);
+            color: var(--texto-claro);
+            font-weight: 300;
+        }
+
+        .mono { font-family: 'Courier Prime', monospace; letter-spacing: 3px; text-transform: lowercase; }
+        .section { padding: 80px 0; }
+
+        /* ---------- hero ---------- */
+        header.hero {
+            min-height: 94vh;
+            display: flex; align-items: center;
+            background: url('hero.jpg') center 60%/cover no-repeat;
+            position: relative; text-align: center; overflow: hidden;
+        }
+        header.hero::before {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(rgba(44,41,37,.68), rgba(44,41,37,.82));
+        }
+        header .content { position: relative; z-index: 1; }
+        .hero-kicker {
+            font-family: 'Courier Prime', monospace; color: #e8dcc6;
+            letter-spacing: 5px; font-size: .9rem;
+        }
+        header.hero h1 {
+            font-family: 'Playfair Display', serif; color: var(--dourado);
+            font-weight: 600; font-size: 4.2rem; line-height: 1.2;
+            letter-spacing: 4px; text-transform: uppercase;
+        }
+        .hero-sub {
+            font-size: 1.15rem; line-height: 1.8; color: #ece2cf;
+            max-width: 620px; margin: 28px auto 0;
+        }
+        .em-construcao {
+            font-family: 'Courier Prime', monospace; color: var(--dourado);
+            letter-spacing: 4px; font-size: .95rem; margin-top: 26px; display: inline-block;
+        }
+
+        .btn-gold {
+            background: var(--dourado); color: var(--carvao-2);
+            font-family: 'Courier Prime', monospace; font-weight: 700;
+            letter-spacing: 2px; font-size: 1rem;
+            padding: 14px 32px; border-radius: 4px; border: none;
+        }
+        .btn-gold:hover { background: var(--dourado-claro); color: var(--carvao-2); }
+        .btn-line {
+            background: rgba(44,41,37,.35); color: var(--dourado);
+            border: 1px solid var(--dourado);
+            font-family: 'Courier Prime', monospace; letter-spacing: 2px;
+            font-size: 1rem; padding: 14px 32px; border-radius: 4px;
+        }
+        .btn-line:hover { background: rgba(201,163,95,.15); color: var(--dourado-claro); }
+
+        .lang-toggle { position: absolute; top: 20px; right: 20px; z-index: 5; }
+        .lang-toggle button {
+            background: rgba(44,41,37,.4); border: 1px solid rgba(201,163,95,.5);
+            color: var(--dourado); border-radius: 3px; padding: 4px 14px;
+            font-family: 'Courier Prime', monospace; font-size: .85rem; letter-spacing: 2px;
+        }
+        .lang-toggle button:hover { background: rgba(201,163,95,.15); }
+
+        h2.display {
+            font-family: 'Playfair Display', serif; color: var(--dourado);
+            font-size: 2.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px;
+        }
+        .kicker {
+            font-family: 'Courier Prime', monospace; color: #9b8f79;
+            letter-spacing: 4px; font-size: .82rem; margin-bottom: 14px;
+        }
+        .manifesto p { font-size: 1.1rem; line-height: 1.9; }
+        .manifesto b { color: var(--dourado); font-weight: 500; }
+
+        /* ---------- seção clara ---------- */
+        .light { background: var(--areia); color: #4a4337; }
+        .light .kicker { color: #8a7a5c; }
+        .light h2.display, .light h3 { color: #6f5426; }
+        .light .manifesto b { color: #6f5426; }
+
+        .quote-card {
+            border-left: 2px solid var(--dourado);
+            padding: 6px 0 6px 26px; text-align: left; height: 100%;
+        }
+        .quote-card blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem; line-height: 1.6; color: #4a4337; margin: 0;
+        }
+        .quote-card .who {
+            font-family: 'Courier Prime', monospace; font-size: .85rem;
+            letter-spacing: 2px; color: #8a7a5c; margin-top: 14px;
+        }
+
+        .quote-card .retrato {
+            width: 92px; height: 92px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--dourado); margin-bottom: 16px; display: block;
+        }
+        .pratica {
+            border: 1px solid rgba(201,163,95,.35); border-radius: 6px;
+            padding: 30px 26px; height: 100%; text-align: left; background: rgba(0,0,0,.14);
+        }
+        .pratica .num { font-family: 'Courier Prime', monospace; color: var(--dourado); letter-spacing: 3px; font-size: .8rem; }
+        .pratica h4 { font-family: 'Playfair Display', serif; color: var(--dourado-claro); font-size: 1.25rem; margin: 10px 0 12px; letter-spacing: 1px; }
+        .pratica p { font-size: .95rem; line-height: 1.7; color: var(--texto-claro); margin: 0; }
+
+        .principio {
+            display: flex; gap: 18px; align-items: baseline;
+            padding: 16px 0; border-bottom: 1px solid rgba(111,84,38,.25); text-align: left;
+        }
+        .principio:last-child { border-bottom: none; }
+        .principio .n { font-family: 'Courier Prime', monospace; color: #8a7a5c; font-size: .95rem; letter-spacing: 2px; white-space: nowrap; }
+        .principio h5 { font-family: 'Playfair Display', serif; color: #6f5426; font-size: 1.05rem; margin: 0 0 2px; }
+        .principio p { font-size: .9rem; color: #6d6252; margin: 0; }
+
+        /* ---------- faixa de citação com mata ---------- */
+        .quote-band {
+            background: url('mata.jpg') center/cover no-repeat;
+            position: relative; padding: 110px 0; text-align: center;
+        }
+        .quote-band::before {
+            content: ""; position: absolute; inset: 0; background: rgba(32,30,26,.72);
+        }
+        .quote-band .inner { position: relative; z-index: 1; }
+        .quote-band blockquote {
+            font-family: 'Playfair Display', serif; font-size: 1.9rem;
+            line-height: 1.5; color: var(--dourado-claro); margin: 0;
+        }
+        .quote-band .who {
+            font-family: 'Courier Prime', monospace; letter-spacing: 3px;
+            font-size: .85rem; color: #cfc3ab; margin-top: 20px;
+        }
+
+        /* ---------- zoom casa/vila/bacia ---------- */
+        .zoom-card {
+            background: #fffdf9; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,.18); text-align: left; height: 100%;
+        }
+        .zoom-card img { width: 100%; height: 215px; object-fit: cover; display: block; }
+        .zoom-card .body { padding: 22px 24px; color: #4a4337; }
+        .zoom-card .tag { font-family: 'Courier Prime', monospace; font-size: .75rem; letter-spacing: 3px; color: #8a7a5c; }
+        .zoom-card h4 { font-family: 'Playfair Display', serif; color: #6f5426; font-size: 1.3rem; margin: 6px 0 8px; }
+        .zoom-card p { font-size: .92rem; color: #6d6252; line-height: 1.65; margin: 0; }
+        .zoom-seta {
+            font-family: 'Courier Prime', monospace; color: #8a7a5c;
+            font-size: 1.6rem; align-self: center;
+        }
+
+        .btn-dark {
+            background: var(--carvao); color: var(--dourado);
+            font-family: 'Courier Prime', monospace; letter-spacing: 2px;
+            padding: 13px 28px; border-radius: 4px; border: none; font-size: .95rem;
+            text-decoration: none; display: inline-block;
+        }
+        .btn-dark:hover { background: #211f1b; color: var(--dourado-claro); }
+
+        .campanha img {
+            width: 100%; max-width: 860px; border-radius: 8px;
+            box-shadow: 0 12px 36px rgba(0,0,0,.35);
+        }
+
+        footer {
+            background: var(--carvao-2); padding: 50px 0; text-align: center;
+            font-size: .9rem; color: #9b8f79;
+        }
+        footer a { color: var(--dourado); text-decoration: none; }
+        footer a:hover { color: var(--dourado-claro); }
+
+        @media (max-width: 767px) {
+            header.hero h1 { font-size: 2.4rem; letter-spacing: 2px; }
+            h2.display { font-size: 1.5rem; }
+            .quote-band blockquote { font-size: 1.35rem; }
+            .section { padding: 60px 0; }
+            .zoom-seta { transform: rotate(90deg); margin: -8px auto; }
+        }
+    </style>
 </head>
+
 <body>
-<p>Redirecionando para <a href="/piracanga/">pequenomundomelhor.org/piracanga</a>…</p>
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+        <div class="lang-toggle">
+            <button type="button" id="langBtn" aria-label="Switch language">EN</button>
+        </div>
+        <div class="container content">
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <p class="hero-kicker" data-pt="um movimento de pessoas" data-en="a movement of people">um movimento de pessoas</p>
+                    <h1 class="mt-3">Pequeno<br>Mundo<br>Melhor</h1>
+                    <p class="hero-sub" data-pt="Moradores, visitantes e comunidades construindo juntos territórios vivos, onde o cuidado com as pessoas, com a Água e com a floresta se pratica todos os dias." data-en="Residents, visitors and communities building living territories together, where care for people, water and forest is practiced every day.">Moradores, visitantes e comunidades construindo juntos territórios vivos, onde o cuidado com as pessoas, com a Água e com a floresta se pratica todos os dias.</p>
+                    <span class="em-construcao" data-pt="em construção" data-en="under construction">em construção</span>
+                    <div class="mt-5 d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="#movimento" class="btn btn-gold" data-pt="o manifesto" data-en="the manifesto">o manifesto</a>
+                        <a href="#zoom" class="btn btn-line" data-pt="da casa para o mundo" data-en="from home to the world">da casa para o mundo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= MANIFESTO ================= -->
+    <section id="movimento" class="section text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 manifesto">
+                    <p class="kicker" data-pt="por que existimos" data-en="why we exist">por que existimos</p>
+                    <h2 class="display" data-pt="A crise do nosso tempo é uma crise de cuidado" data-en="The crisis of our time is a crisis of care">A crise do nosso tempo é uma crise de cuidado</h2>
+                    <p class="mt-4" data-pt="Nunca soubemos tanto. E, ainda assim, ecossistemas degradam, a solidão cresce e a confiança enfraquece. Sabemos mais do que nunca, e parecemos cuidar cada vez menos." data-en="We have never known so much. And yet ecosystems degrade, loneliness rises and trust weakens. We know more than ever, and seem to care less and less.">Nunca soubemos tanto. E, ainda assim, ecossistemas degradam, a solidão cresce e a confiança enfraquece. Sabemos mais do que nunca, e parecemos cuidar cada vez menos.</p>
+                    <p data-pt="Acreditamos que o cuidado não é um sentimento. É uma prática. E toda prática pode ser aprendida. <b>Comunidades podem aprender, continuamente, a cuidar melhor</b> de si, umas das outras e dos sistemas vivos que sustentam a vida." data-en="We believe care is not a feeling. It is a practice. And every practice can be learned. <b>Communities can continuously learn to care better</b> for themselves, for one another and for the living systems that sustain life.">Acreditamos que o cuidado não é um sentimento. É uma prática. E toda prática pode ser aprendida. <b>Comunidades podem aprender, continuamente, a cuidar melhor</b> de si, umas das outras e dos sistemas vivos que sustentam a vida.</p>
+                    <p data-pt="Por isso este movimento não tem dono nem centro. Ele é feito de muitas mãos: quem planta, quem ensina, quem acolhe, quem limpa a praia, quem cuida da Água, quem visita e retribui. <b>Um sistema descentralizado de cuidado</b>, como a própria vida." data-en="That is why this movement has no owner and no center. It is made of many hands: those who plant, teach, welcome, clean the beach, care for the water, visit and give back. <b>A decentralized system of care</b>, like life itself.">Por isso este movimento não tem dono nem centro. Ele é feito de muitas mãos: quem planta, quem ensina, quem acolhe, quem limpa a praia, quem cuida da Água, quem visita e retribui. <b>Um sistema descentralizado de cuidado</b>, como a própria vida.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SMALL IS BEAUTIFUL ================= -->
+    <section class="section light text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <p class="kicker" data-pt="nossa linhagem" data-en="our lineage">nossa linhagem</p>
+                    <h2 class="display" data-pt="O pequeno é belo" data-en="Small is beautiful">O pequeno é belo</h2>
+                    <p class="mt-4 mb-5" style="max-width: 680px; margin-left:auto; margin-right:auto; line-height: 1.8;" data-pt="Caminhamos numa linhagem antiga: a de quem acredita que a escala humana é a escala da vida. E. F. Schumacher nos lembrou que a economia deve servir às pessoas. Satish Kumar ensina há décadas que a regeneração começa pelo solo, pela alma e pela sociedade." data-en="We walk in an old lineage, that of those who believe the human scale is the scale of life. E. F. Schumacher reminded us that economics must serve people. Satish Kumar has taught for decades that regeneration begins with soil, soul and society.">Caminhamos numa linhagem antiga: a de quem acredita que a escala humana é a escala da vida. E. F. Schumacher nos lembrou que a economia deve servir às pessoas. Satish Kumar ensina há décadas que a regeneração começa pelo solo, pela alma e pela sociedade.</p>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="quote-card">
+                                <blockquote data-pt="“O ser humano é pequeno e, por isso, o pequeno é belo. Buscar o gigantismo é buscar a autodestruição.”" data-en="“Man is small, and, therefore, small is beautiful. To go for giantism is to go for self-destruction.”">“O ser humano é pequeno e, por isso, o pequeno é belo. Buscar o gigantismo é buscar a autodestruição.”</blockquote>
+                                <p class="who">E. F. Schumacher · Small Is Beautiful (1973)</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="quote-card">
+                                <img src="satish.jpg" alt="Satish Kumar" class="retrato" loading="lazy" />
+                                <blockquote data-pt="“Solo, Alma, Sociedade: cuidar da terra, de si e dos outros é um único gesto.”" data-en="“Soil, Soul, Society: caring for the earth, for oneself and for others is a single gesture.”">“Solo, Alma, Sociedade: cuidar da terra, de si e dos outros é um único gesto.”</blockquote>
+                                <p class="who" data-pt="Satish Kumar · Soil, Soul, Society (paráfrase)" data-en="Satish Kumar · Soil, Soul, Society (paraphrase)">Satish Kumar · Soil, Soul, Society (paráfrase)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= COMO O MOVIMENTO CUIDA ================= -->
+    <section class="section text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <p class="kicker" data-pt="como cuidamos" data-en="how we care">como cuidamos</p>
+                    <h2 class="display" data-pt="Três práticas, muitas mãos" data-en="Three practices, many hands">Três práticas, muitas mãos</h2>
+                    <div class="row g-4 mt-3">
+                        <div class="col-md-4">
+                            <div class="pratica">
+                                <p class="num">01 / <span data-pt="campos de cuidado" data-en="fields of care">campos de cuidado</span></p>
+                                <h4 data-pt="Cuidar fazendo" data-en="Care by doing">Cuidar fazendo</h4>
+                                <p data-pt="Mutirões, cuidado da Água e dos resíduos, refeições partilhadas, círculos de governança. O cuidado transforma espaço em lugar, e lugar em lar." data-en="Collective work, care for water and waste, shared meals, governance circles. Care turns space into place, and place into home.">Mutirões, cuidado da Água e dos resíduos, refeições partilhadas, círculos de governança. O cuidado transforma espaço em lugar, e lugar em lar.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="pratica">
+                                <p class="num">02 / <span data-pt="universidade viva" data-en="living university">universidade viva</span></p>
+                                <h4 data-pt="Aprender cuidando" data-en="Learn by caring">Aprender cuidando</h4>
+                                <p data-pt="O território é a escola. Moradores e visitantes ensinam e aprendem fazendo, e a comunidade inteira aprende a aprender, geração após geração." data-en="The territory is the school. Residents and visitors teach and learn by doing, and the whole community learns how to learn, generation after generation.">O território é a escola. Moradores e visitantes ensinam e aprendem fazendo, e a comunidade inteira aprende a aprender, geração após geração.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="pratica">
+                                <p class="num">03 / <span data-pt="inteligência viva" data-en="living intelligence">inteligência viva</span></p>
+                                <h4 data-pt="Perceber para agir" data-en="Sense to act">Perceber para agir</h4>
+                                <p data-pt="Censo comunitário, mapas e indicadores devolvem ao território a percepção de si mesmo, para que as decisões nasçam do coletivo, com dados e transparência." data-en="Community census, maps and indicators give the territory back its self-perception, so decisions are born from the collective, with data and transparency.">Censo comunitário, mapas e indicadores devolvem ao território a percepção de si mesmo, para que as decisões nasçam do coletivo, com dados e transparência.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CITAÇÃO SOBRE A MATA ================= -->
+    <section class="quote-band">
+        <div class="container inner">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <blockquote data-pt="“Cuido deste lugar porque este lugar cuida de mim.”" data-en="“I care for this place because this place cares for me.”">“Cuido deste lugar porque este lugar cuida de mim.”</blockquote>
+                    <p class="who" data-pt="onde há cuidado, nasce pertencimento" data-en="where there is care, belonging is born">onde há cuidado, nasce pertencimento</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= ZOOM: DA CASA PARA O MUNDO ================= -->
+    <section id="zoom" class="section light text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <p class="kicker" data-pt="sonhar grande, começar pequeno" data-en="dream big, start small">sonhar grande, começar pequeno</p>
+                    <h2 class="display" data-pt="Tudo começa na casa" data-en="It all begins at home">Tudo começa na casa</h2>
+                    <p class="mt-3 mb-4" style="max-width: 680px; margin-left:auto; margin-right:auto; line-height:1.8;" data-pt="Um pequeno mundo melhor não nasce de um plano. Nasce de um gesto que se expande: da casa para a vila, da vila para a bacia hidrográfica. O primeiro território é a bacia do Rio Piracanga, em Maraú, Bahia. Mais especificamente, começamos o trabalho na vila de Piracanga, onde uma fazenda de cocos abandonada voltou a ser floresta em 20 anos de cuidado comunitário." data-en="A small beautiful world is not born from a plan. It is born from a gesture that expands: from the home to the village, from the village to the watershed. The first territory is the Piracanga River watershed, in Maraú, Bahia. More specifically, the work began in the village of Piracanga, where an abandoned coconut farm became forest again through 20 years of community care.">Um pequeno mundo melhor não nasce de um plano. Nasce de um gesto que se expande: da casa para a vila, da vila para a bacia hidrográfica. O primeiro território é a bacia do Rio Piracanga, em Maraú, Bahia. Mais especificamente, começamos o trabalho na vila de Piracanga, onde uma fazenda de cocos abandonada voltou a ser floresta em 20 anos de cuidado comunitário.</p>
+                    <p class="mono" style="color:#8a7a5c; font-size:.95rem; letter-spacing:4px;" data-pt="casa &gt;&gt; vila &gt;&gt; bacia" data-en="home &gt;&gt; village &gt;&gt; watershed">casa &gt;&gt; vila &gt;&gt; bacia</p>
+                    <div class="row g-3 mt-1 align-items-stretch justify-content-center">
+                        <div class="col-md-4">
+                            <div class="zoom-card">
+                                <img src="casa.jpg" alt="Casas da Vila de Piracanga entre as árvores, vistas de cima" loading="lazy" />
+                                <div class="body">
+                                    <p class="tag">01 · <span data-pt="a casa" data-en="the home">a casa</span></p>
+                                    <h4 data-pt="O cuidado mora aqui" data-en="Care lives here">O cuidado mora aqui</h4>
+                                    <p data-pt="Tudo começa no pequeno: na casa que acolhe, na comida partilhada, no quintal que vira pomar." data-en="It all begins small: in the home that welcomes, in the shared meal, in the backyard that becomes an orchard.">Tudo começa no pequeno: na casa que acolhe, na comida partilhada, no quintal que vira pomar.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="zoom-card">
+                                <img src="vila.jpg" alt="A Vila de Piracanga inteira vista por satélite, casas espalhadas na floresta" loading="lazy" />
+                                <div class="body">
+                                    <p class="tag">02 · <span data-pt="a vila" data-en="the village">a vila</span></p>
+                                    <h4 data-pt="Casas que viram comunidade" data-en="Homes become community">Casas que viram comunidade</h4>
+                                    <p data-pt="Quando as casas se cuidam entre si, nasce a vila: escola, mutirão, festa, governança, floresta de volta." data-en="When homes care for one another, the village is born: school, collective work, celebration, governance, forest returning.">Quando as casas se cuidam entre si, nasce a vila: escola, mutirão, festa, governança, floresta de volta.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="zoom-card">
+                                <img src="bacia.jpg" alt="O rio Piracanga encontrando o mar, visto de drone" loading="lazy" />
+                                <div class="body">
+                                    <p class="tag">03 · <span data-pt="a bacia" data-en="the watershed">a bacia</span></p>
+                                    <h4 data-pt="As vilas unidas cuidam da bacia" data-en="Villages united tend the watershed">As vilas unidas cuidam da bacia</h4>
+                                    <p data-pt="A Água conecta tudo: nascente, rio, mangue e mar. Vilas vizinhas se unem, e o cuidado se expande para a bacia inteira." data-en="Water connects everything: spring, river, mangrove and sea. Neighboring villages unite, and care expands to the whole watershed.">A Água conecta tudo: nascente, rio, mangue e mar. Vilas vizinhas se unem, e o cuidado se expande para a bacia inteira.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="piracanga/painel/" class="btn-dark" data-pt="conheça o painel territorial →" data-en="explore the territorial panel →">conheça o painel territorial →</a>
+                        <a href="piracanga/" class="btn-dark" data-pt="contribua com piracanga →" data-en="contribute to piracanga →">contribua com piracanga →</a>
+                        <a href="https://biomasbrasil.org" target="_blank" rel="noopener" class="btn-dark" data-pt="conheça o biomas →" data-en="meet biomas →">conheça o biomas →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CAMPANHA ================= -->
+    <section class="section text-center campanha">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <p class="kicker" data-pt="vista o movimento" data-en="wear the movement">vista o movimento</p>
+                    <h2 class="display" data-pt="Em construção" data-en="Under construction">Em construção</h2>
+                    <p class="mt-3 mb-4" style="max-width: 620px; margin-left:auto; margin-right:auto; line-height:1.8;" data-pt="Todo pequeno mundo melhor está sempre em construção. A campanha leva essa mensagem para as ruas, e cada camiseta sustenta o Fundo Socioambiental do território." data-en="Every small beautiful world is always under construction. The campaign takes this message to the streets, and every t-shirt sustains the territory's socio-environmental fund.">Todo pequeno mundo melhor está sempre em construção. A campanha leva essa mensagem para as ruas, e cada camiseta sustenta o Fundo Socioambiental do território.</p>
+                    <img src="camiseta.jpg" alt="Camiseta da campanha Pequeno Mundo Melhor, em construção" loading="lazy" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="mono" style="letter-spacing:4px;">pequeno mundo melhor</p>
+            <p class="mb-1" data-pt="um movimento de moradores, visitantes e comunidades. sem dono, sem centro, em construção." data-en="a movement of residents, visitors and communities. no owner, no center, under construction.">um movimento de moradores, visitantes e comunidades. sem dono, sem centro, em construção.</p>
+            <p class="mb-0">
+                🌱 <a href="piracanga/" data-pt="contribua com piracanga" data-en="contribute to piracanga">contribua com piracanga</a>
+                &nbsp;·&nbsp; <a href="https://biomasbrasil.org" target="_blank" rel="noopener">biomasbrasil.org</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let lang = 'pt';
+        function applyLang() {
+            document.querySelectorAll('[data-pt]').forEach(el => {
+                const t = el.getAttribute('data-' + lang);
+                if (t) el.innerHTML = t;
+            });
+            document.getElementById('langBtn').textContent = (lang === 'pt') ? 'EN' : 'PT';
+            document.documentElement.lang = (lang === 'pt') ? 'pt-br' : 'en';
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            applyLang();
+            document.getElementById('langBtn').addEventListener('click', () => {
+                lang = (lang === 'pt') ? 'en' : 'pt';
+                applyLang();
+            });
+        });
+    </script>
 </body>
+
 </html>
